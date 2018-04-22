@@ -1,0 +1,19 @@
+spring:
+  jackson:
+    defaultPropertyInclusion: NON_NULL
+
+server:    
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  port: 8080
+
+plusy:
+  store.path: E:/work/plusy/data
+  config: E:/work/plusy/plusy.json
+  spider.workdir: E:/work/plusy/spider
+  scrapyd:
+    url: http://47.95.213.130:8888
+  
