@@ -1,16 +1,26 @@
 package org.pplm.plusy.bean;
 
-public class DataBean {
+import org.apache.commons.codec.digest.DigestUtils;
+import org.pplm.plusy.bean.scrapyd.ItemBean;
+
+public class DataBean extends ItemBean {
 	
 	private String rowId;
-	private String timestamp;
-	private String href;
-	private String text;
+	private int isRead;
+	
 	
 	public DataBean() {
 		super();
 	}
 
+	public DataBean(ItemBean itemBean) {
+		super();
+		this.href = itemBean.getHref();
+		this.text = itemBean.getText();
+		this.timestamp = itemBean.getTimestamp();
+		this.genRowId();
+	}
+	
 	public String getRowId() {
 		return rowId;
 	}
@@ -18,29 +28,17 @@ public class DataBean {
 	public void setRowId(String rowId) {
 		this.rowId = rowId;
 	}
-
-	public String getTimestamp() {
-		return timestamp;
+	
+	public int getIsRead() {
+		return isRead;
 	}
 
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public void setIsRead(int isRead) {
+		this.isRead = isRead;
 	}
 
-	public String getHref() {
-		return href;
-	}
-
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
+	private void genRowId() {
+		this.rowId = this.timestamp.replaceAll("-",  "") + DigestUtils.sha1Hex(this.href);
 	}
 	
 }

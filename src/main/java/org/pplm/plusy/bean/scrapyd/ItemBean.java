@@ -2,9 +2,9 @@ package org.pplm.plusy.bean.scrapyd;
 
 public class ItemBean {
 	
-	private String timestamp;
-	private String href;
-	private String text;
+	protected String timestamp;
+	protected String href;
+	protected String text;
 	
 	public ItemBean() {
 		super();
