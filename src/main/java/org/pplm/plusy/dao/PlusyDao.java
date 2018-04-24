@@ -59,7 +59,7 @@ public class PlusyDao {
 	
 	public void putSave(String spider, List<DataBean> datas) throws JsonGenerationException, JsonMappingException, IOException {
 		cache.put(spider, datas);
-		objectMapper.writeValue(new File(storePath, spider + DATA_FILE_POSTFIX), datas); 
+		save(spider, datas);
 	}
 	
 	public List<DataBean> get(String spider) {
@@ -67,6 +67,25 @@ public class PlusyDao {
 			return cache.get(spider);
 		}
 		return Collections.emptyList();
+	}
+	
+	public void save(String spider) throws JsonGenerationException, JsonMappingException, IOException {
+		List<DataBean> datas = get(spider);
+		save(spider, datas);
+	}
+	
+	private void save(String spider, List<DataBean> datas) throws JsonGenerationException, JsonMappingException, IOException {
+		objectMapper.writeValue(new File(storePath, spider + DATA_FILE_POSTFIX), datas); 
+	}
+	
+	public void saveAll() {
+		cache.entrySet().forEach(entry -> {
+			try {
+				save(entry.getKey(), entry.getValue());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 	
 }

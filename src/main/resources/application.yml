@@ -11,7 +11,9 @@ server:
   port: 8080
 
 plusy:
-  store.path: E:/work/plusy/data
+  store.path: 
+    data: E:/work/plusy/data
+    readstatus:  E:/work/plusy/readstatus
   config: E:/work/plusy/plusy.json
   spider.workdir: E:/work/plusy/spider
   scrapyd:
