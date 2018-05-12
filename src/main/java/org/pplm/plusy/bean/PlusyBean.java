@@ -2,8 +2,8 @@ package org.pplm.plusy.bean;
 
 public class PlusyBean {
 	private String name;
-	private String spiderName;
-	private Integer spiderInterval;
+	private String spider;
+	private Integer interval;
 
 	public PlusyBean() {
 		super();
@@ -17,20 +17,20 @@ public class PlusyBean {
 		this.name = name;
 	}
 
-	public String getSpiderName() {
-		return spiderName;
+	public String getSpider() {
+		return spider;
 	}
 
-	public void setSpiderName(String spiderName) {
-		this.spiderName = spiderName;
+	public void setSpider(String spider) {
+		this.spider = spider;
 	}
 
-	public Integer getSpiderInterval() {
-		return spiderInterval;
+	public Integer getInterval() {
+		return interval;
 	}
 
-	public void setSpiderInterval(Integer spiderInterval) {
-		this.spiderInterval = spiderInterval;
+	public void setInterval(Integer interval) {
+		this.interval = interval;
 	}
-	
+
 }

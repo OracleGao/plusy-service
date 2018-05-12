@@ -11,11 +11,14 @@ server:
   port: 8080
 
 plusy:
-  store.path: 
-    data: E:/work/plusy/data
-    readstatus:  E:/work/plusy/readstatus
+  store:
+    limit: 20
+    path: 
+      data: E:/work/plusy/data
+      readstatus:  E:/work/plusy/readstatus
   config: E:/work/plusy/plusy.json
   spider.workdir: E:/work/plusy/spider
   scrapyd:
+    project: plusy
     url: http://47.95.213.130:8888
   

@@ -26,7 +26,7 @@ public class ReadStatusDao {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	@Value("${plusy.store.readstatus}")
+	@Value("${plusy.store.path.readstatus}")
 	private File storePath;
 	
 	@PostConstruct
