@@ -3,6 +3,7 @@ package org.pplm.plusy.bean;
 public class PlusyBean {
 	private String name;
 	private String spider;
+	private String href;
 	private Integer interval;
 
 	public PlusyBean() {
@@ -23,6 +24,14 @@ public class PlusyBean {
 
 	public void setSpider(String spider) {
 		this.spider = spider;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	public Integer getInterval() {
