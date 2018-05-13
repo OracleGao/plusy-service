@@ -1,12 +1,12 @@
 package org.pplm.plusy.bean;
 
-public class PlusyBean {
+public class SpiderBean {
 	private String name;
 	private String spider;
 	private String href;
 	private Integer interval;
 
-	public PlusyBean() {
+	public SpiderBean() {
 		super();
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pplm.plusy.bean.DataBean;
-import org.pplm.plusy.dao.PlusyDao;
+import org.pplm.plusy.dao.SpiderDao;
 import org.pplm.plusy.service.DataService;
 import org.pplm.plusy.utils.ResHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/plusy", produces = MediaType.APPLICATION_JSON_VALUE)
-public class PlusyController {
+@RequestMapping(path = "/spider", produces = MediaType.APPLICATION_JSON_VALUE)
+public class SpiderController {
 
 	@Autowired
-	private PlusyDao plusyDao;
+	private SpiderDao plusyDao;
 
 	@Autowired
 	private DataService dataService;
