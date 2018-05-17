@@ -1,10 +1,14 @@
 package org.pplm.plusy.bean;
 
 public class SpiderBean {
+	
 	private String name;
 	private String spider;
 	private String href;
-	private Integer interval;
+	private Long interval;
+	private Long randomDelayLimit;
+	private Long checkInterval;
+	private Integer checkTimes;
 
 	public SpiderBean() {
 		super();
@@ -34,12 +38,36 @@ public class SpiderBean {
 		this.href = href;
 	}
 
-	public Integer getInterval() {
+	public Long getInterval() {
 		return interval;
 	}
 
-	public void setInterval(Integer interval) {
+	public void setInterval(Long interval) {
 		this.interval = interval;
+	}
+
+	public Long getRandomDelayLimit() {
+		return randomDelayLimit;
+	}
+
+	public void setRandomDelayLimit(Long randomDelayLimit) {
+		this.randomDelayLimit = randomDelayLimit;
+	}
+
+	public Long getCheckInterval() {
+		return checkInterval;
+	}
+
+	public void setCheckInterval(Long checkInterval) {
+		this.checkInterval = checkInterval;
+	}
+
+	public Integer getCheckTimes() {
+		return checkTimes;
+	}
+
+	public void setCheckTimes(Integer checkTimes) {
+		this.checkTimes = checkTimes;
 	}
 
 }

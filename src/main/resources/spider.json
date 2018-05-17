@@ -1,0 +1,28 @@
+[
+    {
+        "name": "香港食环署",
+		"spider": "www.cfs.gov.hk",
+		"href": "http://www.cfs.gov.hk/sc_chi/whatsnew/whatsnew_fa/whatsnew_fa.html",
+		"interval": 30,
+		"randomDelayLimit": 10,
+		"checkInterval": 15,
+		"checkTimes": 6
+    },
+	{
+	    "name": "食品药品监督管理局曝光栏",
+		"spider": "www.sda.gov.cn",
+		"interval": 30,
+		"randomDelayLimit": 10,
+		"checkInterval": 15,
+		"checkTimes": 6
+	},
+	{
+		"name": "商务部驻外机构",
+		"spider": "www.mofcom.gov.cn",
+		"href": "http://www.mofcom.gov.cn/article/i/?4065733583=922702548",
+		"interval": 30,
+		"randomDelayLimit": 10,
+		"checkInterval": 15,
+		"checkTimes": 6
+	}
+]

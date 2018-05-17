@@ -17,10 +17,11 @@ plusy:
       data: E:/work/plusy/data
       readstatus:  E:/work/plusy/readstatus
   config: 
-    spider: E:/work/plusy/plusy.json
+    spider: E:/work/plusy/spider.json
     user: E:/work/plusy/user.json
-  spider.workdir: E:/work/plusy/spider
   scrapyd:
     project: plusy
     url: http://47.95.213.130:8888
+  threadpool.size: 20
+  
   
