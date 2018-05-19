@@ -1,26 +1,42 @@
 package org.pplm.plusy.lib;
 
+import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.pplm.plusy.bean.SpiderBean;
+import org.pplm.plusy.bean.SpiderConfigBean;
+import org.pplm.plusy.bean.scrapyd.ScheduleBean;
+import org.pplm.plusy.service.ScrapydService;
 
 public class SpiderStartupWorker implements Runnable {
 
-	private SpiderBean spiderBean;
-	private ScheduledExecutorService scheduledExecutorService; 
-	
-	public SpiderStartupWorker(SpiderBean spiderBean, ScheduledExecutorService scheduledExecutorService) {
+	private SpiderConfigBean spiderBean;
+	private ScheduledExecutorService scheduledExecutorService;
+	private ScrapydService scrapydService;
+
+	public SpiderStartupWorker(SpiderConfigBean spiderBean, ScheduledExecutorService scheduledExecutorService,
+			ScrapydService scrapydService) {
 		super();
 		this.spiderBean = spiderBean;
 		this.scheduledExecutorService = scheduledExecutorService;
+		this.scrapydService = scrapydService;
 	}
 
 	@Override
 	public void run() {
-		scheduledExecutorService.schedule(this, getNextDeply(), TimeUnit.MILLISECONDS);
+		try {
+			ScheduleBean scheduleBean = scrapydService.startup(spiderBean.getSpider());
+			if (scheduleBean != null && !"".equals(scheduleBean.getJobId())) {
+				scheduledExecutorService.schedule(
+						new SpiderResultChecker(spiderBean, scheduleBean, scheduledExecutorService, scrapydService),
+						spiderBean.getCheckInterval(), TimeUnit.MILLISECONDS);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		scheduledExecutorService.schedule(this, getNextDeply(), TimeUnit.SECONDS);
 	}
-	
+
 	private long getNextDeply() {
 		Long randomDelayLimit = spiderBean.getRandomDelayLimit();
 		Long delay = 0L;
@@ -39,11 +55,11 @@ public class SpiderStartupWorker implements Runnable {
 		this.scheduledExecutorService = scheduledExecutorService;
 	}
 
-	public SpiderBean getSpiderBean() {
+	public SpiderConfigBean getSpiderBean() {
 		return spiderBean;
 	}
 
-	public void setSpiderBean(SpiderBean spiderBean) {
+	public void setSpiderBean(SpiderConfigBean spiderBean) {
 		this.spiderBean = spiderBean;
 	}
 

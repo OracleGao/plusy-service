@@ -1,18 +1,22 @@
 package org.pplm.plusy.bean.scrapyd;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public class ScheduleBean extends ScrapydBean {
-	private String jobid;
+
+	@JsonAlias("jobid")
+	private String jobId;
 
 	public ScheduleBean() {
 		super();
 	}
 
-	public String getJobid() {
-		return jobid;
+	public String getJobId() {
+		return jobId;
 	}
 
-	public void setJobid(String jobid) {
-		this.jobid = jobid;
+	public void setJobId(String jobId) {
+		this.jobId = jobId;
 	}
 	
 }

@@ -32,13 +32,13 @@ public class ScrapydController {
 	private DataService dataService;
 
 	@GetMapping(path = "/startup")
-	public Map<String, Object> startupOnPost() {
+	public Map<String, Object> startupOnPost() throws IOException {
 		ScheduleBean scheduleBean = scrapydService.startup("www.cfs.gov.hk");
 		return ResHelper.success(scheduleBean);
 	}
 
-	@GetMapping(path = "/spiders")
-	public Map<String, Object> spidersOnGet() {
+	@GetMapping(path = "/list")
+	public Map<String, Object> spidersOnGet() throws IOException {
 		SpidersBean spiderBean = scrapydService.getSpiders();
 		return ResHelper.success(spiderBean);
 	}

@@ -1,6 +1,6 @@
 package org.pplm.plusy.bean;
 
-public class SpiderBean {
+public class SpiderConfigBean {
 	
 	private String name;
 	private String spider;
@@ -10,7 +10,7 @@ public class SpiderBean {
 	private Long checkInterval;
 	private Integer checkTimes;
 
-	public SpiderBean() {
+	public SpiderConfigBean() {
 		super();
 	}
 

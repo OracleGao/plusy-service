@@ -6,7 +6,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import javax.annotation.PostConstruct;
 
-import org.pplm.plusy.bean.SpiderBean;
+import org.pplm.plusy.bean.SpiderConfigBean;
 import org.pplm.plusy.dao.SpiderDao;
 import org.pplm.plusy.lib.SpiderStartupWorker;
 import org.pplm.plusy.utils.Constant;
@@ -15,12 +15,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ScrapydScheduleService {
+public class SpiderScheduleService {
 
 	@Autowired
 	private SpiderDao spiderDao;
 
-	private List<SpiderBean> spiders;
+	@Autowired
+	private ScrapydService scrapydService;
+
+	private List<SpiderConfigBean> spiders;
 
 	@Value("${plusy.threadpool.size}")
 	private int threadpoolSize;
@@ -36,8 +39,8 @@ public class ScrapydScheduleService {
 
 	public void startup() {
 		spiders.forEach(spiderBean -> scheduledExecutorService.schedule(
-				new SpiderStartupWorker(spiderBean, scheduledExecutorService), spiderBean.getRandomDelayLimit(),
-				Constant.SCHEDULE_TIME_UNIT));
+				new SpiderStartupWorker(spiderBean, scheduledExecutorService, scrapydService),
+				spiderBean.getRandomDelayLimit(), Constant.SCHEDULE_TIME_UNIT));
 	}
 
 }

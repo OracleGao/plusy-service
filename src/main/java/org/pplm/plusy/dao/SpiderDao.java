@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.pplm.plusy.bean.SpiderBean;
+import org.pplm.plusy.bean.SpiderConfigBean;
 import org.pplm.plusy.dao.base.ListCacheDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 @Repository
-public class SpiderDao extends ListCacheDao<SpiderBean> {
+public class SpiderDao extends ListCacheDao<SpiderConfigBean> {
 	
 	@Value("${plusy.config.spider}")
 	private File configFile; 
@@ -30,8 +30,8 @@ public class SpiderDao extends ListCacheDao<SpiderBean> {
 	}
 	
 	@Override
-	public TypeReference<List<SpiderBean>> getTypeReference() {
-		return new TypeReference<List<SpiderBean>>(){};
+	public TypeReference<List<SpiderConfigBean>> getTypeReference() {
+		return new TypeReference<List<SpiderConfigBean>>(){};
 	}
 	
 }
