@@ -8,8 +8,12 @@ import org.pplm.plusy.bean.scrapyd.ScheduleBean;
 import org.pplm.plusy.service.ScrapydService;
 import org.pplm.plusy.utils.Constant;
 import org.pplm.plusy.utils.Constant.ScrapydJobStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SpiderResultChecker implements Runnable {
+	
+	private static Logger logger = LoggerFactory.getLogger(SpiderResultChecker.class);
 
 	private SpiderConfigBean spiderConfigBean;
 	private ScheduledExecutorService scheduledExecutorService;
@@ -32,6 +36,7 @@ public class SpiderResultChecker implements Runnable {
 			String spider = spiderConfigBean.getSpider();
 			String jobId = scheduleBean.getJobId();
 			ScrapydJobStatus scrapydJobStatus = scrapydService.getJobStatus(jobId);
+			logger.debug("===  check spider [" + spider + "], status [" + scrapydJobStatus.getValue() +  "] ===");
 			scrapydService.putSpiderStatus(spider, jobId, scrapydJobStatus.getValue());
 			switch (scrapydJobStatus) {
 			case PENDING:
@@ -39,6 +44,7 @@ public class SpiderResultChecker implements Runnable {
 				if (times++ >= spiderConfigBean.getCheckTimes()) {
 					scrapydService.putSpiderStatus(spider, jobId, ScrapydJobStatus.TIMEOUT.getValue());
 				} else {
+					logger.debug("=== schedule next spider [" + spider + "] check in [" +  spiderConfigBean.getCheckInterval() + "] " + Constant.CHECK_TIME_UNIT.name() + " ===");
 					scheduledExecutorService.schedule(this, spiderConfigBean.getCheckInterval(), Constant.CHECK_TIME_UNIT);
 				}
 				break;

@@ -10,6 +10,9 @@ server:
       charset: UTF-8
   port: 8080
 
+logging.level:
+  org.pplm.plusy: debug
+
 plusy:
   store:
     limit: 20
@@ -23,5 +26,6 @@ plusy:
     project: plusy
     url: http://47.95.213.130:8888
   threadpool.size: 20
+  auth: false
   
   

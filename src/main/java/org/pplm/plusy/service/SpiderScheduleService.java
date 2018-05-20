@@ -3,13 +3,13 @@ package org.pplm.plusy.service;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
 import org.pplm.plusy.bean.SpiderConfigBean;
 import org.pplm.plusy.dao.SpiderDao;
 import org.pplm.plusy.lib.SpiderStartupWorker;
-import org.pplm.plusy.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class SpiderScheduleService {
 	public void startup() {
 		spiders.forEach(spiderBean -> scheduledExecutorService.schedule(
 				new SpiderStartupWorker(spiderBean, scheduledExecutorService, scrapydService),
-				spiderBean.getRandomDelayLimit(), Constant.SCHEDULE_TIME_UNIT));
+				spiderBean.getRandomDelayLimit(), TimeUnit.SECONDS));
 	}
 
 }

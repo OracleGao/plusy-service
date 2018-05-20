@@ -16,6 +16,8 @@ import org.pplm.plusy.bean.scrapyd.ScheduleBean;
 import org.pplm.plusy.bean.scrapyd.SpidersBean;
 import org.pplm.plusy.utils.Constant;
 import org.pplm.plusy.utils.Constant.ScrapydJobStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -33,6 +35,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ScrapydService {
+	
+	private static Logger logger = LoggerFactory.getLogger(ScrapydService.class);
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -74,10 +78,14 @@ public class ScrapydService {
 
 		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 		String json = postForString(scheduleUrl , httpEntity);
+		logger.debug("=== schedule result: " + json + " ===");
 		if (json != null) {
 			ScheduleBean scheduleBean = objectMapper.readValue(json, ScheduleBean.class);
 			if ("ok".equals(scheduleBean.getStatus())) {
-				
+				this.putSpiderStatus(spider, scheduleBean.getJobId(), "pending");
+				return scheduleBean;
+			} else {
+				this.putSpiderStatus(spider, scheduleBean.getJobId(), "unknow");
 			}
 		}
 		return null;
@@ -96,6 +104,7 @@ public class ScrapydService {
 			spiderStatusBean.setJobId(jobId);
 			spiderStatusBean.setStatus(status);
 			spiderStatusBean.setTimestamp(Constant.currentTimestamp());
+			spiderStatusMap.put(spider, spiderStatusBean);
 		}
 	}
 	
@@ -120,7 +129,7 @@ public class ScrapydService {
 		return Collections.emptyList();
 	}
 	
-	public JobsBean getJobsBean(String jobId) throws IOException {
+	public JobsBean getJobs() throws IOException {
 		String json = postForString(jobsUrl);
 		if (json != null) {
 			return objectMapper.readValue(json, JobsBean.class);
@@ -129,7 +138,7 @@ public class ScrapydService {
 	}
 	
 	public ScrapydJobStatus getJobStatus(String jobId) throws IOException {
-		JobsBean jobsBean = getJobsBean(jobId);
+		JobsBean jobsBean = getJobs();
 		if (jobsBean != null) {
 			if (jobsBean.pendingContain(jobId)) {
 				return ScrapydJobStatus.PENDING;
@@ -146,6 +155,7 @@ public class ScrapydService {
 	
 	public void processItems(String spider, String jobId) throws IOException {
 		List<ItemBean> items = getItems(spider, jobId);
+		
 		dataService.putItems(spider, items);
 	}
 	

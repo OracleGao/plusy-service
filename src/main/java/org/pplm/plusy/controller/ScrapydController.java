@@ -27,7 +27,7 @@ public class ScrapydController {
 
 	@Autowired
 	private ScrapydService scrapydService;
-	
+
 	@Autowired
 	private DataService dataService;
 
@@ -37,17 +37,29 @@ public class ScrapydController {
 		return ResHelper.success(scheduleBean);
 	}
 
-	@GetMapping(path = "/list")
+	@GetMapping(path = "/spiders")
 	public Map<String, Object> spidersOnGet() throws IOException {
 		SpidersBean spiderBean = scrapydService.getSpiders();
 		return ResHelper.success(spiderBean);
 	}
 
+	@GetMapping(path = "/jobs")
+	public Map<String, Object> jobsOnGet() throws IOException {
+		return ResHelper.success(scrapydService.getJobs());
+	}
+
 	@PostMapping(path = "/items")
-	public Map<String, Object> itemsOnPost(@RequestParam(name = "spider", required = true)String spider, @RequestParam(name = "jobId", required = true) String jobId) throws JsonParseException, JsonMappingException, IOException {
+	public Map<String, Object> itemsOnPost(@RequestParam(name = "spider", required = true) String spider,
+			@RequestParam(name = "jobId", required = true) String jobId)
+			throws JsonParseException, JsonMappingException, IOException {
 		List<ItemBean> items = scrapydService.getItems(spider, jobId);
 		dataService.putItems(spider, items);
 		return ResHelper.success(items);
+	}
+
+	@GetMapping(path = "/status")
+	public Map<String, Object> statusOnGet() {
+		return ResHelper.success(scrapydService.getSpidersStatus());
 	}
 	
 }
