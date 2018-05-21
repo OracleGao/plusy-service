@@ -15,7 +15,7 @@ logging.level:
 
 plusy:
   store:
-    limit: 20
+    limit: 100
     path: 
       data: E:/work/plusy/data
       readstatus:  E:/work/plusy/readstatus
