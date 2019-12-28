@@ -35,6 +35,7 @@ public class DataService {
 					.sorted((d1, d2) -> d2.getRowId().compareTo(d1.getRowId())).collect(Collectors.toList());
 			if (!newDatas.isEmpty()) {
 				newDatas.addAll(datas);
+				newDatas.sort((d1, d2) -> d2.getRowId().compareTo(d1.getRowId()));
 				dataDao.putSave(spider, newDatas);
 			}
 		}

@@ -6,7 +6,7 @@
 
 	<groupId>com.clouderwork</groupId>
 	<artifactId>plusy-service</artifactId>
-	<version>0.8.0</version>
+	<version>0.8.0.1</version>
 	<packaging>jar</packaging>
 
 	<!-- Inherit defaults from Spring Boot -->

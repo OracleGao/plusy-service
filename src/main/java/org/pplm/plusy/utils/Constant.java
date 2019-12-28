@@ -18,7 +18,7 @@ public final class Constant {
 
 	static class SystemInfo {
 		public String name = "Plusy Service";
-		public String version = "0.8.0.0";
+		public String version = "0.8.0.1";
 		public String startup = currentTimestamp();
 
 		public SystemInfo() {
